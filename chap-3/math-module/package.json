@@ -1,0 +1,11 @@
+{
+  "name": "math-module",
+  "version": "1.0.0",
+  "description": "Module pour les calculs mathématiques",
+  "main": "mmm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
