@@ -1,0 +1,15 @@
+{
+  "name": "node-server",
+  "version": "1.0.0",
+  "description": "Build a Node server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "es6-shim": "^0.33.0"
+  }
+}
