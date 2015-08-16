@@ -1,0 +1,50 @@
+// Launch the client Mongo
+> mongo
+
+
+// See current database
+> db
+
+
+// Switch database
+> use $another_db_name
+
+
+// See all databases
+> show dbs
+
+
+// Insert data
+> db.people.insert([{name: 'George H Bush'},{name: 'George W Bush'}])
+
+
+// Retrieve all data
+> db.people.find()
+
+
+// Retrieve data with filter
+> db.people.findOne({name: {$regex: 'Bush'}})
+
+
+// Limit the retrieve to one result
+> db.people.findOne({name: {$regex: 'Bush'}})
+
+
+// Limit the retrieve to n result
+> db.people.find().limit(n);
+
+
+// Update some data
+> db.people.update({name: 'Bill Clinton'}, {$set: {name: 'William Clinton', terms: 2}})
+
+
+// Remove some data
+> db.people.remove({name: {$regex: 'Bush$'}}, {justOne: true})
+
+
+// Remove a collection
+> db.people.drop()
+
+
+// Remove a database
+> db.dropDatabase()
