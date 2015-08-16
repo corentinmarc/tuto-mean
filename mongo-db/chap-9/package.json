@@ -1,0 +1,18 @@
+{
+  "name": "node-server-with-mongo",
+  "version": "1.0.0",
+  "description": "Build a Node server",
+  "main": "index.js",
+  "scripts": {
+    "populate": "node ./bin/populate_db",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^1.4.2",
+    "colors": "^1.1.2",
+    "mongoose": "^4.1.2",
+    "mongoose-post-find": "0.0.2"
+  }
+}
