@@ -133,7 +133,7 @@ var addTeams = function(callback) {
         if (error) {
             console.error('Error: ' + error);
         } else {
-            data.team_id = team1._id;
+            data.team_id = team1[0]._id;
         }
         console.info('Done adding teams');
         callback();
