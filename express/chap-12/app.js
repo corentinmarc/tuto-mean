@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+require('./lib/connection');
+var employeeService = require('./lib/employees');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -24,6 +27,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.use('/api', function (req, res, next) {
+  console.log('/api logger');
+  console.log(req.method + ' ' + req.url);
+  next();
+});
+
+app.get('/employees/:employeeId',
+    employeeService.retrieveEmployee,
+    function(req, res, next) {
+      var jsonEmployee = JSON.stringify(res.locals.employee);
+      res.end(jsonEmployee);
+    }
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
