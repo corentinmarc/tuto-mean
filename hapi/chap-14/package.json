@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "hapi": "^9.0.3"
+    "hapi": "^9.0.3",
+    "joi": "^6.9.1"
   }
 }
