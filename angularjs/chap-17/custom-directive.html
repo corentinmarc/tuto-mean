@@ -32,7 +32,6 @@
                                     ' ' + person.lastName + '</div>';
                             return str;
                         }).join('');
-                        console.log(template);
                         var newElement = $compile(template)(scope);
                         element.replaceWith(newElement);
                     }
