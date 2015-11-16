@@ -1,3 +1,4 @@
+var uuid = require('node-uuid');
 var express = require('express');
 var mongoose = require('mongoose');
 var Employee = mongoose.model('Employee');
@@ -32,11 +33,13 @@ router.get('/employees/:employeeId', function(req, res, next) {
 });
 
 router.put('/employees/', function (req, res, next) {
-    Employee.insert(req.body, function (err, numberAffected, response) {
+
+    req.body.id = uuid.v4();
+    Employee.create(req.body, function (err, result) {
         if (err) {
             return next(err);
         }
-        res.send(200);
+        res.json(result);
     });
 });
 
@@ -54,6 +57,25 @@ router.put('/employees/:employeeId', function (req, res, next) {
         res.send(200);
     });
 });
+
+router.delete('/employees/:employeeId', function (req, res, next) {
+    Employee.remove({
+        id: req.params.employeeId
+    }, function (err) {
+        if (err) {
+            return next(err);
+        }
+
+        Employee.find().sort('name.last').exec(function(error, results) {
+            if (error) {
+                return next(error);
+            }
+            // Respond with valid data
+            res.json(results);
+        });
+    });
+});
+
 
 
 module.exports = router;
