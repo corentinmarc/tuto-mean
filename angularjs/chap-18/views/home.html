@@ -20,26 +20,57 @@
     </div>
 
     <script src="../js/angular.js"></script>
+    <script src="../js/angular-resource.js"></script>
     <script>
-        var app = angular.module('app', []);
+        var app = angular.module('app', ['ngResource']);
 
-        app.controller('main', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+        app.factory('EmployeeService', ['$resource', function($resource) {
+            return $resource('/employees/:employeeId', {}, {
+                get: {
+                    isArray: true
+                },
+                delete: {
+                    isArray: true,
+                    method: 'DELETE'
+                },
+                put: {
+                    method: 'PUT'
+                }
+            });
+        }]);
+
+        app.controller('main', ['$scope', 'EmployeeService', '$rootScope', function($scope, EmployeeService, $rootScope) {
             $scope.employees = [];
             $scope.firstName = $scope.lastName = '';
 
-            $http.get('/employees').success(function(data) {
+//            $http.get('/employees').success(function(data) {
+//                $scope.employees = data;
+//                window.mainController = $scope;
+//                $rootScope.$emit('log', 'GET /employees success');
+//            });
+            EmployeeService.get(function (data) {
                 $scope.employees = data;
-                window.mainController = $scope;
                 $rootScope.$emit('log', 'GET /employees success');
             });
 
             $scope.add = function () {
-                $http.put('/employees', {
+//                $http.put('/employees', {
+//                    name: {
+//                        first: $scope.firstName,
+//                        last: $scope.lastName
+//                    }
+//                }).success(function(data) {
+//                    $scope.employees.push(data);
+//                    $scope.firstName = $scope.lastName = '';
+//                    $rootScope.$emit('log', 'POST /employees success');
+//                });
+
+                EmployeeService.put({
                     name: {
                         first: $scope.firstName,
                         last: $scope.lastName
                     }
-                }).success(function(data) {
+                }, function (data) {
                     $scope.employees.push(data);
                     $scope.firstName = $scope.lastName = '';
                     $rootScope.$emit('log', 'POST /employees success');
@@ -47,7 +78,11 @@
             };
 
             $scope.remove = function(employee) {
-                $http.delete('/employees/' + employee.id).success(function(data) {
+//                $http.delete('/employees/' + employee.id).success(function(data) {
+//                    $scope.employees = data;
+//                    $rootScope.$emit('log', 'DELETE /employees success');
+//                });
+                EmployeeService.delete({employeeId: employee.id}, function(data) {
                     $scope.employees = data;
                     $rootScope.$emit('log', 'DELETE /employees success');
                 });
